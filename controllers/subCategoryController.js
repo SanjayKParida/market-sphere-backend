@@ -17,8 +17,18 @@ export const subCategoryPost = async (req, res) => {
   }
 };
 
-//SUBCATEGORY GET API ENDPOINT
+//ALL SUBCATEGORY GET API ENDPOINT
 export const subCategoryGet = async (req, res) => {
+  try {
+    const subcategories = await subCategory.find();
+    res.status(200).json(subcategories);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+//SUBCATEGORY GET API ENDPOINT
+export const subCategoryDynamicGet = async (req, res) => {
   try {
     const { categoryName } = req.params;
     const subcategories = await subCategory.find({

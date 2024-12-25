@@ -6,6 +6,7 @@ import { bannerRouter } from "./routes/banner.js";
 import { categoryRouter } from "./routes/category.js";
 import { subCategoryRouter } from "./routes/subCategory.js";
 import { productRouter } from "./routes/product.js";
+import cors from "cors";
 import { productReviewRouter } from "./routes/productReview.js";
 
 //IMPORTING ENVIRONMENTAL CONFIGS
@@ -19,6 +20,9 @@ const PORT = process.env.PORT || 5000;
 
 //TO HANDLE JSON SENT BY HTTP REQUEST
 app.use(express.json());
+
+//ENABLING CORS
+app.use(cors());
 
 //USING AUTH ROUTER
 app.use(authRouter);
