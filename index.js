@@ -8,6 +8,7 @@ import { subCategoryRouter } from "./routes/subCategory.js";
 import { productRouter } from "./routes/product.js";
 import cors from "cors";
 import { productReviewRouter } from "./routes/productReview.js";
+import { vendorRouter } from "./routes/vendorAuth.js";
 
 //IMPORTING ENVIRONMENTAL CONFIGS
 dotenv.config();
@@ -41,6 +42,9 @@ app.use(productRouter);
 
 //USING PRODUCT REVIEW ROUTER
 app.use(productReviewRouter);
+
+//USING VENDOR ROUTER
+app.use(vendorRouter);
 
 //DATABASE CONNECTION
 connectDb();

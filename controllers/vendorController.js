@@ -1,55 +1,55 @@
-import { User } from "../models/user.js";
+import { Vendor } from "../models/vendor.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-//CREATE USER FUNCTION
-export const createUser = async (req, res) => {
+//VENDOR SIGNUP FUNCTION
+export const createVendor = async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
-    const exisitingEmail = await User.findOne({ email });
+    const exisitingEmail = await Vendor.findOne({ email });
     if (exisitingEmail) {
       return res
         .status(400)
-        .json({ message: "User with same email already exixsts." });
+        .json({ message: "Vendor with same email already exixsts." });
     } else {
       //GENERATING SALT WITH COST FACTOR
       const salt = await bcrypt.genSalt(10);
       //HASING PASSWORD
       const hashedPassword = await bcrypt.hash(password, salt);
-      let user = new User({
+      let vendor = new Vendor({
         email,
         password: hashedPassword,
         fullName,
       });
-      user = await user.save();
-      res.json({ user });
+      vendor = await vendor.save();
+      res.json({ vendor });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-//SIGN IN USER FUNCTION
-export const signInUser = async (req, res) => {
+//VENDOR SIGNIN FUNCTION
+export const signInVendor = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const foundUser = await User.findOne({ email });
-    if (!foundUser) {
-      res.status(400).json({ message: "User not found with the email" });
+    const foundVendor = await Vendor.findOne({ email });
+    if (!foundVendor) {
+      res.status(400).json({ message: "Vendor not found with the email" });
     } else {
-      const isMatched = await bcrypt.compare(password, foundUser.password);
+      const isMatched = await bcrypt.compare(password, foundVendor.password);
       if (!isMatched) {
         return res.status(400).json({ message: "Incorrect password" });
       } else {
-        const token = jwt.sign({ id: foundUser._id }, "passwordKey");
+        const token = jwt.sign({ id: foundVendor._id }, "passwordKey");
 
         //REMOVE SENSITIVE DATA
-        const { password, ...userWithoutPassword } = foundUser._doc;
+        const { password, ...vendorWithoutPassword } = foundVendor._doc;
 
         //SEND RESPONSE
         res.json({
           token,
-          user: userWithoutPassword,
+          vendor: vendorWithoutPassword,
         });
       }
     }
