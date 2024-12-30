@@ -3,7 +3,7 @@
 [![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB)](#)
 [![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?logo=mongodb&logoColor=white)](#)
 
-- Market Sphere Vendor is a mobile application for vendors to manage their products, view orders, and track sales performance. Built using Flutter, it provides a robust interface for seamless vendor operations.
+- The Market Sphere Backend is a robust and scalable server-side solution built using Node.js, Express.js, and MongoDB. It powers the entire Market Sphere ecosystem by providing secure, efficient, and reliable API endpoints to support the platform's operations.
 - Developed under the **Market Sphere Project**.
 
 ## ⚡️ Features
