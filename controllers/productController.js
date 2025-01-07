@@ -1,4 +1,3 @@
-import e from "express";
 import { Product } from "../models/product.js";
 
 export const addProduct = async (req, res) => {
@@ -61,7 +60,7 @@ export const recommendedProducts = async (req, res) => {
 export const productsByCategory = async (req, res) => {
   try {
     const { category } = req.params;
-    const products = await Product.find({ category });
+    const products = await Product.find({ category, popular: true });
     if (!products || products.length == 0) {
       return res.status(404).json({ message: "Products not found" });
     } else {

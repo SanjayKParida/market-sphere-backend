@@ -57,3 +57,31 @@ export const signInUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const updateUserAddress = async (req, res) => {
+  try {
+    //EXTRACT THE ID PARAMETER FROM THE REQUEST
+    const { id } = req.params;
+    //EXTRACT THE STATE, CITY AND LOCALITY FROM THE REQUEST BODY
+    const { state, city, locality } = req.body;
+    //FIND THE USER BY ID
+    //THE {new:true} ENSURES THE UPDATED DOCUMENT IS RETURNED
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      {
+        state,
+        city,
+        locality,
+      },
+      { new: true }
+    );
+    //IF NO USER IS FOUND RETURN 404
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not Found!" });
+    } else {
+      return res.status(200).json(updatedUser);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
